@@ -1,18 +1,18 @@
 package com.example.solid.exercise;
 
 public class OrderManager {
-    private EmailService emailService;
-    private SMSService smsService;
-    private InvoiceGenerator invoiceGenerator;
+    private emailsend emailService;
+    private SMSsender smsService;
+    private InvoiceService invoiceService;
 
-    public OrderManager() {
-        this.emailService = new EmailService();
-        this.smsService = new SMSService();
-        this.invoiceGenerator = new InvoiceGenerator();
+    public OrderManager(InvoiceService invoiceService, emailsend emailService, SMSsender smsService) {
+        this.emailService = emailService;
+        this.smsService = smsService;
+        this.invoiceService = invoiceService;
     }
 
     public void processOrder(Order order) {
-        invoiceGenerator.generateInvoice(order);
+        invoiceService.generateInvoice(order);
         emailService.sendEmail(order.getCustomerEmail(), "Your order has been processed.");
         smsService.sendSMS(order.getCustomerPhone(), "Your order has been processed.");
     }
